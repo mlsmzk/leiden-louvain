@@ -48,6 +48,11 @@ class Graph:
         """
         self.nodes = nodes
         self.edges = edges
+        self.G = nx.Graph()
+        # Create a mapping from frozenset nodes to numbers
+        node_labels = {node: list(node)[0] for node in self.nodes}
+        self.G.add_nodes_from(node_labels.values())
+        self.G.add_edges_from([(node_labels[u], node_labels[v]) for u, v in self.edges])
 
     def __repr__(self):
         """
@@ -59,12 +64,8 @@ class Graph:
         """
         Draws the graph using NetworkX and Matplotlib, displaying only the numbers for each node label.
         """
-        G = nx.Graph()
-        # Create a mapping from frozenset nodes to numbers
-        node_labels = {node: list(node)[0] for node in self.nodes}
-        G.add_nodes_from(node_labels.values())
-        G.add_edges_from([(node_labels[u], node_labels[v]) for u, v in self.edges])
-        nx.draw(G, with_labels=True, node_color='lightblue')
+        
+        nx.draw(self.G, with_labels=True, node_color='lightblue')
         plt.show()
 
 
@@ -210,9 +211,10 @@ def Louvain(G, P):
 if __name__ == "__main__":
     G = nx.karate_club_graph()
     P = singleton_partition(G)
-    print(P)
-    # agg_graph = aggregate_graph(G,P)
+    # print(P)
+    
+    agg_graph = aggregate_graph(G,P)
 
-    # agg_graph.draw()
+    agg_graph.draw()
     
     # Louvain(G, P)
