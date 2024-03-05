@@ -4,17 +4,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-# from os.path import basename, exists
-
-# def download(url):
-#   filename = basename(url)
-#   if not exists(filename):
-#     from urllib.request import urlretrieve
-#     local, _ = urlretrieve(url, filename)
-#     print('Downloaded ' + local)
-
-# download('https://raw.githubusercontent.com/mlsmzk/leiden-louvain/main/code/data/stack_network_links.csv')
-# download('https://raw.githubusercontent.com/mlsmzk/leiden-louvain/main/code/data/stack_network_nodes.csv')
+from graph_data import GraphData
 
 def singleton_partition(G):
     """
@@ -60,12 +50,12 @@ class Graph:
         """
         return f"Graph(nodes={self.nodes}, edges={self.edges})"
 
-    def draw(self):
+    def draw(self, with_labels=True):
         """
         Draws the graph using NetworkX and Matplotlib, displaying only the numbers for each node label.
         """
         
-        nx.draw(self.G, with_labels=True, node_color='lightblue')
+        nx.draw(self.G, node_size=50, with_labels=with_labels, node_color='lightblue')
         plt.show()
 
 
@@ -209,12 +199,15 @@ def Louvain(G, P):
 
 
 if __name__ == "__main__":
-    G = nx.karate_club_graph()
-    P = singleton_partition(G)
+    # G = nx.karate_club_graph()
+    G = GraphData()
+
+    P = singleton_partition(G.G)
     # print(P)
     
-    agg_graph = aggregate_graph(G,P)
+    agg_graph = aggregate_graph(G.G,P)
 
-    agg_graph.draw()
+    # G.draw(h=True)
+    # agg_graph.draw()
     
-    # Louvain(G, P)
+    Louvain(G.G, P)
