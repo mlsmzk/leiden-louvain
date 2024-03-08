@@ -91,18 +91,17 @@ def aggregate_graph(G, P):
     Returns:
         Graph: The aggregate graph.
     """
-    V = P # currently set of frozensets
-    
-    E = []
+    V = P
+    E = set()
     for (u, v) in G.edges:
         for C in P:
             for D in P:
                 if u in C and v in D:
-                    E.append((C, D))
-
-    print("nodes", V)
-    print("edges", E)
-    return make_graph(V, E)
+                    E.add((C, D))
+    G = nx.Graph()
+    G.add_nodes_from(V)
+    G.add_edges_from(E)
+    return G
 
 def recursive_size(s):
     """
