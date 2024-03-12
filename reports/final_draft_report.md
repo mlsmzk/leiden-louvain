@@ -23,17 +23,17 @@ It is important to note that in the refinement phase of the algorithm, nodes are
 
 We first implemented Louvain on the small network data “Zachary’s Karate Club”. Zachary's Karate Club is a built-in dataset of the python library NetworkX, and it is a well-known social network dataset that represents the friendships between 34 members of a karate club at a US university in the 1970s that is often used for testing and as a benchmark in social network analysis, community detection, and graph clustering research, including the academic paper we are replicating in this project. It is important to note that the karate club eventually split into two separate clubs due to a conflict between the instructor (node 0) and the club president (node 33), and by only looking at the network before community detection, it is pretty obvious that there are two loosely formed clusters around note 0 and node 33.
 
-![alt text]([https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%201.png](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%202.png))
+![alt text](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%202.png)
 Figure 2: A raw visualization of the Zachary Club network
 
 As shown in the Figure 3, the Louvain model separated the graph into four communities, as represented by different colors. By looking at the graph, it is clear that node 9 is poorly connected to the rest of its community, and the community consisting of nodes 24, 25, 28, and 31 is somewhat interfered with by nodes from nearby communities. Despite these minor flaws, it overall does a pretty good job of segregating nodes into communities. This is expected because Louvain's major flaw of creating poorly connected or disconnected communities usually only occurs in larger network data. 
 
-![alt text]([https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%201.png](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%203.png))
+![alt text](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%203.png)
 Figure 3: the Zachary Club network after being separated by Louvain. The communities are color coded. 
 
 Theoretically speaking, the Leiden model is supposed to perform better than the Louvain model. However, as our results in Figure 4 show, it is the exact opposite: all of the nodes that are categorized into a community seem to be far away from one another. 
 
-![alt text]([https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%201.png](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%201.png))
+![alt text](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%204.png)
 Figure 4: the Zachary Club network after being separated by Leiden. The communities are color coded. 
 
 We concluded three probable reasons:
