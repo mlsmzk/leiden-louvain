@@ -126,7 +126,7 @@ def draw_partitioned_graph(G, P):
 
 
 if __name__ == "__main__":
-    G = GraphData()
-    final_Leiden_partition = leiden_algorithm(G.G)
+    G = nx.karate_club_graph()
+    final_Leiden_partition = leiden_algorithm(G)
     print(final_Leiden_partition)
-    draw_partitioned_graph(G.G, final_Leiden_partition)
+    draw_partitioned_graph(G, final_Leiden_partition)
