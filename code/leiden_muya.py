@@ -140,7 +140,7 @@ def merge_nodes_subset(G, P, S):
                 prob = {C: p / total_prob for C, p in prob.items()}
                 chosen_community = np.random.choice(list(T), p=list(prob.values()))
                 # Update P by removing v from its current community and adding it to the chosen community
-                P = {C - {v} if v in C else C for C in P}
+                P.remove({v})
                 P.add(chosen_community | {v})
 
     return P
@@ -206,7 +206,10 @@ def Leiden(G, initial_partition=None):
     else:
         P = initial_partition
     done = False
+    iters = 0
     while not done:
+        print(iters)
+        iters += 1
         P = move_nodes_fast(G, P)
         done = len(P) == len(G.nodes)
         if not done:
@@ -214,6 +217,7 @@ def Leiden(G, initial_partition=None):
             G = aggregate_graph(G, prefinined)
             P = {frozenset({v for v in C if v in G.nodes}) for C in P}
     return flatten_partition(P)
+
 if __name__ == "__main__":
     G = nx.karate_club_graph()
     P = singleton_partition(G)

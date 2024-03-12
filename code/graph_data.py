@@ -35,14 +35,6 @@ class GraphData:
         self.G.add_edges_from(edges_data)
         self.H.add_edges_from(edges_data)
 
-    def __repr__(self):
-        if h:
-            nx.draw(self.H, node_size=50) # , with_labels=True
-            plt.show()
-            return
-        nx.draw(self.G, node_size=50, node_color=self.node_colors) # , with_labels=True
-        plt.show()
-
     def draw(self, h=False):
         if h:
             nx.draw(self.H, node_size=50) # , with_labels=True

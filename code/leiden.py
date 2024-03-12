@@ -86,36 +86,36 @@ def singleton_partition(G):
     """
     return {frozenset({v}) for v in G.nodes()}
 
-def merge_nodes_subset(G, partition, subset, gamma=0.5, theta=0.1):
-    R = set()
-    for v in subset:
-        s = frozenset([v])
-        # Recursive size of a set s containing one node v might have to be the degree of the node v
-        if get_edges_between_sets(s, subset - s, G) >= gamma * recursive_size(set(s)) * (recursive_size(subset) - recursive_size(set(s))):
-            R.add(v)
+# def merge_nodes_subset(G, partition, subset, gamma=0.5, theta=0.1):
+#     R = set()
+#     for v in subset:
+#         s = frozenset([v])
+#         # Recursive size of a set s containing one node v might have to be the degree of the node v
+#         if get_edges_between_sets(s, subset - s, G) >= gamma * recursive_size(set(s)) * (recursive_size(subset) - recursive_size(set(s))):
+#             R.add(v)
 
-    for node in R:
-        if frozenset({node}) in partition: # If v is a singleton community
-            T = set()
-            for comm in partition:
-                well_connected = gamma * recursive_size(comm) * (recursive_size(subset) - recursive_size(comm))
-                if comm.issubset(subset) and get_edges_between_sets(comm, subset-comm, G) >= well_connected:
-                    T.add(comm)
-            delta_hp = {C: quality_change(G, partition, node, C) for C in T}
-            prob = {C: np.exp(1 / theta * delta_hp[C]) if delta_hp[C] >= 0 else 0 for C in T}
-            total_prob = sum(prob.values())
-            if total_prob > 0:
-                prob = {C: p / total_prob for C, p in prob.items()}
-                chosen_community = np.random.choice(list(T), p=list(prob.values()))
-                partition = {C - {v} if v in C else C for C in partition}
-                partition.add(chosen_community | {v})
-    return partition
+#     for node in R:
+#         if frozenset({node}) in partition: # If v is a singleton community
+#             T = set()
+#             for comm in partition:
+#                 well_connected = gamma * recursive_size(comm) * (recursive_size(subset) - recursive_size(comm))
+#                 if comm.issubset(subset) and get_edges_between_sets(comm, subset-comm, G) >= well_connected:
+#                     T.add(comm)
+#             delta_hp = {C: quality_change(G, partition, node, C) for C in T}
+#             prob = {C: np.exp(1 / theta * delta_hp[C]) if delta_hp[C] >= 0 else 0 for C in T}
+#             total_prob = sum(prob.values())
+#             if total_prob > 0:
+#                 prob = {C: p / total_prob for C, p in prob.items()}
+#                 chosen_community = np.random.choice(list(T), p=list(prob.values()))
+#                 partition = {C - {v} if v in C else C for C in partition}
+#                 partition.add(chosen_community | {v})
+#     return partition
 
-def refine_partition(G, partition):
-    P_refined = singleton_partition(G)
-    for C in partition:
-        P_refined = merge_nodes_subset(G, P_refined, C)
-    return P_refined
+# def refine_partition(G, partition):
+#     P_refined = singleton_partition(G)
+#     for C in partition:
+#         P_refined = merge_nodes_subset(G, P_refined, C)
+#     return P_refined
 
 
 
@@ -142,7 +142,7 @@ def leiden_algorithm(G):
             best_comm = partition[node]
             for neighbor in G.neighbors(node):
                 if partition[node] != partition[neighbor]:
-                    refine_partition(G, partition)
+                    # refine_partition(G, partition)
                     new_partition = partition.copy()
                     new_partition[node] = new_partition[neighbor]
                     new_mod = modularity(G, [list(comm) for comm in nx.connected_components(G.subgraph(new_partition.keys()))])
