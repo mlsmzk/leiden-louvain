@@ -3,7 +3,7 @@ import random
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-
+from graph_data import GraphData
 
 def degree_partition(G):
     """
