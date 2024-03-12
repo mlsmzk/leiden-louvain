@@ -87,6 +87,8 @@ Our rationales behind using degree-based partitioning specifically are
 The below graph (FIgure 8) is the final partitioned communities.
 
 ![alt text](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%208.png)
+**Figure 8**: Leiden implementation on Stack Overflow data after changing its first step to be degree-partitioning. 
+
 As we theorized, the degree-based initial partitioning improved the speed of the Louvain model patently. For the singtleton partitioning model, to generate the final community clusters, it took our device 19 minutes 13 seconds, while for degree-based partitioning model, it took only 1 minute 22 seconds.
 
 We then integrated degree-based partitioning into the first phase of Leiden algorithm. Prior to this modification, the execution time of the Leiden was approximately 45 seconds. Following the implementation of degree partitioning, the execution time has been significantly reduced to merely 10 seconds -- another drastic decrease in time.
