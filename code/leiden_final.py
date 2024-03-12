@@ -1,6 +1,7 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
+from graph_data import GraphData
 
 def modularity(G, communities, total_edges):
     """
@@ -124,8 +125,8 @@ def draw_partitioned_graph(G, P):
     plt.show()
 
 
-# Example usage:
-G = nx.karate_club_graph()
-final_Leiden_partition = leiden_algorithm(G)
-print(final_Leiden_partition)
-draw_partitioned_graph(G, final_Leiden_partition)
+if __name__ == "__main__":
+    G = GraphData()
+    final_Leiden_partition = leiden_algorithm(G.G)
+    print(final_Leiden_partition)
+    draw_partitioned_graph(G.G, final_Leiden_partition)

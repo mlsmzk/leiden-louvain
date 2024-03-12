@@ -295,18 +295,18 @@ def Leiden(G, initial_partition=None):
             #     return P
             P_refined = refine_partition(G, P)
             G = aggregate_graph(G, P_refined)
-            # for C in P: # Maintain P: for each community
-            #     print("C", C)
-            #     new = []
-            #     for v in C: # for each node
-            #         curr = []
-            #         if v in G.nodes: # if in G
-            #             curr.append(v)
-            #         curr = frozenset(curr)
-            #         new.append(curr) # add to P
-            # P = set(new) # convert to set
-            # print(len(G.nodes), len(P))
-            # print("P:\n" , P)
+            for C in P: # Maintain P: for each community
+                print("C", C)
+                new = []
+                for v in C: # for each node
+                    curr = []
+                    if v in G.nodes: # if in G
+                        curr.append(v)
+                    curr = frozenset(curr)
+                    new.append(curr) # add to P
+            P = set(new) # convert to set
+            print(len(G.nodes), len(P))
+            print("P:\n" , P)
         iters += 1
     return flatten_partition(P)
 
