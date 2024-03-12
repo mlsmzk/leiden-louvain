@@ -84,8 +84,9 @@ Our rationales behind using degree-based partitioning specifically are
 
 3. **Scalability**: For large networks, starting with a degree partition can be impractical due to the computational resources required. A degree-based partition can make the Louvain algorithm more scalable by reducing the size of the problem from the outset.
 
-The below graph is the final partitioned communities.
+The below graph (FIgure 8) is the final partitioned communities.
 
+![alt text](https://github.com/mlsmzk/leiden-louvain/blob/main/img/Figure%208.png)
 As we theorized, the degree-based initial partitioning improved the speed of the Louvain model patently. For the singtleton partitioning model, to generate the final community clusters, it took our device 19 minutes 13 seconds, while for degree-based partitioning model, it took only 1 minute 22 seconds.
 
 We then integrated degree-based partitioning into the first phase of Leiden algorithm. Prior to this modification, the execution time of the Leiden was approximately 45 seconds. Following the implementation of degree partitioning, the execution time has been significantly reduced to merely 10 seconds -- another drastic decrease in time.
